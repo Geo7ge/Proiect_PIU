@@ -11,7 +11,7 @@ namespace Lab2_Tema
         static void Main(string[] args)
         {
 
-
+            ////////////
             Carte carte = Carte.CitesteCarte();
         }
     }
