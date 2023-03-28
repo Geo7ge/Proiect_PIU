@@ -13,16 +13,18 @@ namespace Lab2_Tema
         {
             Carte carte = new Carte();
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
+            AdministrareCarti_FisierText adminCarti = new AdministrareCarti_FisierText(numeFisier);
             int nrCarti = 0;
-
+            adminCarti.GetCarti(out nrCarti);
 
             string optiune;
             do
             {
                 Console.WriteLine("I. Introducere informatii pentru carte de la tastatura");
-                Console.WriteLine("A. Afisare ultimele informatii intruduse");
-                //Console.WriteLine("F. Afisare studenti din fisier");
-                //Console.WriteLine("S. Salvare student in fisier");
+                Console.WriteLine("A. Afisare ultimele informatii intruduse despre o carte");
+                Console.WriteLine("F. Afisare carti din fisier");
+                Console.WriteLine("S. Salvare carte in fisier");
+                Console.WriteLine("C. Cauta prin carti dupa un anumit criteriu");
                 Console.WriteLine("X. Inchidere program");
                 Console.WriteLine("Alegeti o optiune");
                 optiune = Console.ReadLine();
@@ -36,20 +38,24 @@ namespace Lab2_Tema
                         carte.AfiseazaCarte();
 
                         break;
-/*                    case "F":
-                        Student[] studenti = adminStudenti.GetStudenti(out nrStudenti);
-                        AfisareStudenti(studenti, nrStudenti);
+                    case "F":
+                        Carte[] carti = adminCarti.GetCarti(out nrCarti);
+                        AfisareCarti(carti, nrCarti);
 
-                        break;*/
-/*                    case "S":
-                        int idStudent = nrStudenti + 1;
-                        student.SetIdStudent(idStudent);
-                        //adaugare student in fisier
-                        adminStudenti.AddStudent(student);
+                        break;
+                    case "S":
+                        adminCarti.AddCarte(carte);
 
-                        nrStudenti = nrStudenti + 1;
+                        nrCarti = nrCarti + 1;
 
-                        break;*/
+                        break;
+                    case "C":
+                        Carte[] Carti = adminCarti.GetCarti(out nrCarti);
+                        Console.WriteLine("Aveti de ales dintre urmatoarele optiuni:" +
+                            "   Titlu   Autor   AnPublicatie   Detinator");
+                        CautaCarte(Console.ReadLine(), nrCarti, Carti);
+
+                        break;
                     case "X":
 
                         return;
@@ -59,6 +65,76 @@ namespace Lab2_Tema
                         break;
                 }
             } while (optiune.ToUpper() != "X");
+            Console.ReadKey();
         }
+
+        public static void AfisareCarte(Carte carte) ///// LAB_3 - afisare date din fisier
+        {
+            string infoCarte = string.Format("Titlu: {0} Autor: {1} An publicatie: {2} Valabilitate: {3} Detinator: {4}",
+                carte.GetTitlu(),
+                carte.GetAutor(),
+                carte.GetAnPublicatie(),
+                carte.GetValabilitate(),
+                carte.GetDetinator());
+            Console.WriteLine(infoCarte);
+        }
+
+        public static void AfisareCarti(Carte[] carti, int nrCarti) ///// LAB_3 - afisare date din fisier
+        {
+            Console.WriteLine("Cartile sunt : ");
+            for (int contor = 0; contor < nrCarti; contor++)
+            {
+                AfisareCarte(carti[contor]);
+            }
+        }
+
+        public static void CautaCarte(string criteriu, int nrCarti, Carte[] carti) ///// LAB_3 - căutarea după anumite criterii
+        {
+
+            switch(criteriu)
+            {
+                case "Titlu":
+                    Console.WriteLine("Introduceti datele pe care doriti sa le cautati");
+                    string date_cerute = Console.ReadLine();
+                    Console.WriteLine("Pentru datele introduse am gasit in fisier urmatoarele similaritati");
+                    for (int contor = 0; contor < nrCarti; contor++)
+                        if (carti[contor].GetTitlu() == date_cerute)
+                            Console.WriteLine(carti[contor].Info());
+
+                        break;
+                case "Autor":
+                    Console.WriteLine("Introduceti datele pe care doriti sa le cautati");
+                    date_cerute = Console.ReadLine();
+                    Console.WriteLine("Pentru datele introduse am gasit in fisier urmatoarele similaritati");
+                    for (int contor = 0; contor < nrCarti; contor++)
+                        if (carti[contor].GetAutor() == date_cerute)
+                            Console.WriteLine(carti[contor].Info());
+
+                    break;
+                case "AnPublicatie":
+                    Console.WriteLine("Introduceti datele pe care doriti sa le cautati");
+                    date_cerute = Console.ReadLine();
+                    Console.WriteLine("Pentru datele introduse am gasit in fisier urmatoarele similaritati");
+                    for (int contor = 0; contor < nrCarti; contor++)
+                        if (carti[contor].GetAnPublicatie() == Convert.ToInt16(date_cerute))
+                            Console.WriteLine(carti[contor].Info());
+
+                    break;
+                case "Detinator":
+                    Console.WriteLine("Introduceti datele pe care doriti sa le cautati");
+                    date_cerute = Console.ReadLine();
+                    Console.WriteLine("Pentru datele introduse am gasit in fisier urmatoarele similaritati");
+                    for (int contor = 0; contor < nrCarti; contor++)
+                        if (carti[contor].GetDetinator() == date_cerute)
+                            Console.WriteLine(carti[contor].Info());
+
+                    break;
+                default:
+                    Console.WriteLine("Optiune inexistenta");
+
+                    break;
+            }
+        }
+
     }
 }

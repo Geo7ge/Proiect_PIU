@@ -9,25 +9,42 @@ namespace Lab2_Tema
     internal class Carte
     {
         private const char SEPARATOR = ';';
+
+        private const int TITLU = 0;
+        private const int AUTOR = 1;
+        private const int ANPUBLICATIE = 2;
+        private const int VALABILITATE = 3;
+        private const int DETINATOR = 4;
+
         public string Titlu { get; set; }
         public string Autor { get; set; }
         public int AnPublicatie { get; set; }
         public bool Valabilitate { get; set; }
         public string Detinator { get; set; }
 
-        public Carte()
+        public Carte() //Constructor implicit
         {
             Titlu = Autor = Detinator = string.Empty;
             AnPublicatie = 0;
             Valabilitate = false;
         }
-        public Carte(string titlu, string autor, int anPublicatie, bool valabilitate, string detinator)
+        public Carte(string titlu, string autor, int anPublicatie, bool valabilitate, string detinator) //Constructor cu parametrii
         {
             Titlu = titlu;
             Autor = autor;
             AnPublicatie = anPublicatie;
             Valabilitate = valabilitate;
             Detinator = detinator;
+        }
+
+        public Carte(string linieFisier) //Constructor folosind datele din fisier
+        {
+            var dateFisier = linieFisier.Split(SEPARATOR);
+            Titlu = dateFisier[TITLU];
+            Autor = dateFisier[AUTOR];
+            AnPublicatie = Convert.ToInt16(dateFisier[ANPUBLICATIE]);
+            Valabilitate = Convert.ToBoolean(dateFisier[VALABILITATE]);
+            Detinator = dateFisier[DETINATOR];
         }
 
         public static Carte CitesteCarteTastatura() ///// LAB_3 - citirea datelor de la tastatura;
@@ -50,11 +67,6 @@ namespace Lab2_Tema
             return new Carte(titlu, autor, anPublicatie, valabilitate, detinator);
         }
 
-        public void CautaCarte(string criteriu)
-        {
-
-        }
-
         public void AfiseazaCarte() ///// LAB_3 - afisarea datelor de la tastatura;
         {
             string stringPentruAfisare = string.Format("Informatiile despre carte sunt urmatoarele:\n" +
@@ -65,6 +77,29 @@ namespace Lab2_Tema
                 GetValabilitate(),
                 GetDetinator());
             Console.WriteLine(stringPentruAfisare);
+        }
+
+        public string Info()
+        {
+            string info = string.Format("Titlu: {0} Autor: {1} An publicatie: {2} Valabilitate: {3} Detinator: {4}",
+                GetTitlu(),
+                GetAutor(),
+                GetAnPublicatie(),
+                GetValabilitate(),
+                GetDetinator());
+            return info;
+        }
+
+        public string ConversieLaSirPentruFisier() ///// LAB_3 - conversia datelor la string pentru scrierea in fisier
+        {
+            string stringPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}{0}",
+                SEPARATOR,
+                GetTitlu(),
+                GetAutor(),
+                GetAnPublicatie(),
+                GetValabilitate(),
+                GetDetinator());
+            return stringPentruFisier;
         }
 
         public string GetTitlu()

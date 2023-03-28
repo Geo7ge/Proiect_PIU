@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrareCarti_FisierText.cs" />
     <Compile Include="Biblioteca.cs" />
     <Compile Include="Carte.cs" />
     <Compile Include="Program.cs" />
