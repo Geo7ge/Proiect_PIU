@@ -52,7 +52,7 @@ namespace Lab2_Tema
                     case "C":
                         Carte[] Carti = adminCarti.GetCarti(out nrCarti);
                         Console.WriteLine("Aveti de ales dintre urmatoarele optiuni:" +
-                            "   Titlu   Autor   AnPublicatie   Detinator");
+                            "   Titlu   Autor   AnPublicatie   SubiectLiterar   Detinator");
                         CautaCarte(Console.ReadLine(), nrCarti, Carti);
 
                         break;
@@ -70,10 +70,11 @@ namespace Lab2_Tema
 
         public static void AfisareCarte(Carte carte) ///// LAB_3 - afisare date din fisier
         {
-            string infoCarte = string.Format("Titlu: {0} Autor: {1} An publicatie: {2} Valabilitate: {3} Detinator: {4}",
+            string infoCarte = string.Format("Titlu: {0} Autor: {1} An publicatie: {2} Subiect Literar: {3} Valabilitate: {4} Detinator: {5}",
                 carte.GetTitlu(),
                 carte.GetAutor(),
                 carte.GetAnPublicatie(),
+                carte.GetSubiectLiterar(),
                 carte.GetValabilitate(),
                 carte.GetDetinator());
             Console.WriteLine(infoCarte);
@@ -117,6 +118,15 @@ namespace Lab2_Tema
                     Console.WriteLine("Pentru datele introduse am gasit in fisier urmatoarele similaritati");
                     for (int contor = 0; contor < nrCarti; contor++)
                         if (carti[contor].GetAnPublicatie() == Convert.ToInt16(date_cerute))
+                            Console.WriteLine(carti[contor].Info());
+
+                    break;
+                case "SubiectLiterar":
+                    Console.WriteLine("Introduceti datele pe care doriti sa le cautati");
+                    date_cerute = Console.ReadLine();
+                    Console.WriteLine("Pentru datele introduse am gasit in fisier urmatoarele similaritati");
+                    for (int contor = 0; contor < nrCarti; contor++)
+                        if (carti[contor].GetSubiectLiterar() == date_cerute)
                             Console.WriteLine(carti[contor].Info());
 
                     break;
