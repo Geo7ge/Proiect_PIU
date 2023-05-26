@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Lab2_Tema
 {
-    internal class AdministrareCarti_FisierText
+    public class AdministrareCarti_FisierText
     {
         private const int NR_MAX_CARTI = 100;
         private string numeFisier;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab2_Tema
 {
-    internal class Carte
+    public class Carte
     {
         public enum valabilitate ///// LAB_5 - exercitiul 2;
         {

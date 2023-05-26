@@ -1,0 +1,2 @@
+WWW;QQQ;1888;Fantezie;False;Aurel;
+QQQ;WWW;2666;Crima;False;Arel;
