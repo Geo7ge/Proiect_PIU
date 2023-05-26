@@ -1,4 +1,6 @@
 # Proiect_PIU
+### Andries George Serban - Grupa 3122A
+### Tema proiectului este - Biblioteca
 ### Să se scrie programul pentru gestionarea împrumuturilor cărților dintr-o bibliotecă. O carte poate să existe în mai mult exemplare. Pe lângă operațiile de adăugare, editare, ștergere pentru un autor sau carte sau pentru persoana care împrumută, se vor afișa următoarele situații:
 - [ ] pentru o anumită carte se va afișa dacă este disponibilă sau nu;
 - [ ] pentru o anumită persoană se va afișa numărul de cărți împrumutate; dacă numărul
