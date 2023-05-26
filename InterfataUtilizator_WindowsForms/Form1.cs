@@ -38,7 +38,6 @@ namespace InterfataUtilizator_WindowsForms
         private TextBox boxAutor;
         private TextBox boxAnPublicatie;
         private TextBox boxSubiectLiterar;
-        private TextBox boxValabilitate;
         private TextBox boxDetinator;
 
         private Label lblBoxTitlu;
@@ -50,7 +49,6 @@ namespace InterfataUtilizator_WindowsForms
 
         private Button BtnAdauga;
         private Button BtnRefresh;
-
 
 
         private const int Latime = 100;
@@ -65,7 +63,7 @@ namespace InterfataUtilizator_WindowsForms
             adminCarti = new AdministrareCarti_FisierText(caleCompletaFisier);
             InitializeComponent();
 
-            this.Size = new Size(750, 250);
+            this.Size = new Size(750, 300);
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(100, 100);
             this.Font = new Font("Arial", 9, FontStyle.Bold);
@@ -134,10 +132,10 @@ namespace InterfataUtilizator_WindowsForms
             boxSubiectLiterar.Top = 4 * Dimensiune_Y;
             this.Controls.Add(boxSubiectLiterar);
 
-            boxValabilitate = new TextBox();
-            boxValabilitate.Left = 7 * Dimensiune_X;
-            boxValabilitate.Top = 5 * Dimensiune_Y;
-            this.Controls.Add(boxValabilitate);
+            //boxValabilitate = new TextBox();
+            //boxValabilitate.Left = 7 * Dimensiune_X;
+            //boxValabilitate.Top = 5 * Dimensiune_Y;
+            //this.Controls.Add(boxValabilitate);
 
             boxDetinator = new TextBox();
             boxDetinator.Left = 7 * Dimensiune_X;
@@ -214,6 +212,7 @@ namespace InterfataUtilizator_WindowsForms
             BtnRefresh.Click += new EventHandler(this.Form1_Load);
             this.Controls.Add(BtnRefresh);
             BtnRefresh.Click += BtnRefresh_Click;
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -345,15 +344,15 @@ namespace InterfataUtilizator_WindowsForms
             }
 
             bool v = false;
-            if (boxValabilitate.Text.Trim().Length > 0 && bool.TryParse(boxValabilitate.Text, out v))
+            if (RbtValabilitate0.Checked)
             {
-                lblBoxValabilitate.ForeColor = Color.DarkGreen;
+                v = false;
                 okValabilitate = true;
-                v = bool.TryParse(boxValabilitate.Text, out v);
             }
-            else
+            if(RbtValabilitate1.Checked)
             {
-                lblBoxValabilitate.ForeColor = Color.Red;
+                v = true;
+                okValabilitate = true;
             }
 
             if (boxDetinator.Text.Trim().Length > 0 && boxDetinator.Text.Trim().Length < 20)
@@ -372,6 +371,21 @@ namespace InterfataUtilizator_WindowsForms
                 //carte.SetNote(boxNote.Text);
                 adminCarti.AddCarte(carte);
             }
+            boxTitlu.Text = string.Empty;
+            boxAutor.Text = string.Empty;
+            boxAnPublicatie.Text = string.Empty;
+            boxSubiectLiterar.Text = string.Empty;
+            RbtValabilitate0.Checked = RbtValabilitate1.Checked = false;
+            boxDetinator.Text = string.Empty;
+            RbtValabilitate0.Checked = true;
+            RbtValabilitate1.Checked = false;
+            lblBoxTitlu.ForeColor = Color.DarkCyan;
+            lblBoxAutor.ForeColor = Color.DarkCyan;
+            lblBoxAnPublicatie.ForeColor = Color.DarkCyan;
+            lblBoxSubiectLiterar.ForeColor = Color.DarkCyan;
+            lblBoxValabilitate.ForeColor = Color.DarkCyan;
+            lblBoxDetinator.ForeColor = Color.DarkCyan;
+
 
         }
         private void BtnAdauga_Click(object sender, EventArgs e)
