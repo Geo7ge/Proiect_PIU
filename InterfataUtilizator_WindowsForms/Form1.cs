@@ -25,7 +25,6 @@ namespace InterfataUtilizator_WindowsForms
         private Label lblValabilitate;
         private Label lblDetinator;
 
-
         private Label[] lblsTitlu;
         private Label[] lblsAutor;
         private Label[] lblsAnPublicatie;
@@ -33,12 +32,12 @@ namespace InterfataUtilizator_WindowsForms
         private Label[] lblsValabilitate;
         private Label[] lblsDetinator;
 
-
         private TextBox boxTitlu;
         private TextBox boxAutor;
         private TextBox boxAnPublicatie;
         private TextBox boxSubiectLiterar;
         private TextBox boxDetinator;
+        private TextBox boxCautare;
 
         private Label lblBoxTitlu;
         private Label lblBoxAutor;
@@ -46,24 +45,24 @@ namespace InterfataUtilizator_WindowsForms
         private Label lblBoxSubiectLiterar;
         private Label lblBoxValabilitate;
         private Label lblBoxDetinator;
+        private Label lblBoxCautare;
 
         private Button BtnAdauga;
         private Button BtnRefresh;
-
+        private Button BtnCauta;
 
         private const int Latime = 100;
         private const int Dimensiune_Y = 30;
         private const int Dimensiune_X = 100;
         public Form1()
         {
-
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
             string locatieFisierSolutie = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             string caleCompletaFisier = locatieFisierSolutie + "\\" + numeFisier;
             adminCarti = new AdministrareCarti_FisierText(caleCompletaFisier);
             InitializeComponent();
 
-            this.Size = new Size(750, 300);
+            this.Size = new Size(900, 300);
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(100, 100);
             this.Font = new Font("Arial", 9, FontStyle.Bold);
@@ -132,15 +131,15 @@ namespace InterfataUtilizator_WindowsForms
             boxSubiectLiterar.Top = 4 * Dimensiune_Y;
             this.Controls.Add(boxSubiectLiterar);
 
-            //boxValabilitate = new TextBox();
-            //boxValabilitate.Left = 7 * Dimensiune_X;
-            //boxValabilitate.Top = 5 * Dimensiune_Y;
-            //this.Controls.Add(boxValabilitate);
-
             boxDetinator = new TextBox();
             boxDetinator.Left = 7 * Dimensiune_X;
             boxDetinator.Top = 6 * Dimensiune_Y;
             this.Controls.Add(boxDetinator);
+
+            boxCautare = new TextBox();
+            boxCautare.Left = 8 * Dimensiune_X;
+            boxCautare.Top = 2 * Dimensiune_Y;
+            this.Controls.Add(boxCautare);
 
             lblBoxTitlu = new Label();
             lblBoxTitlu.Width = Latime;
@@ -196,6 +195,15 @@ namespace InterfataUtilizator_WindowsForms
             lblBoxDetinator.TextAlign = ContentAlignment.MiddleRight;
             this.Controls.Add(lblBoxDetinator);
 
+            lblBoxCautare = new Label();
+            lblBoxCautare.Width = Latime * 2;
+            lblBoxCautare.Text = "Cautare dupa titlu";
+            lblBoxCautare.Left = 7 * Dimensiune_X + 10;
+            lblBoxCautare.Top = Dimensiune_Y;
+            lblBoxCautare.ForeColor = Color.DarkCyan;
+            lblBoxCautare.TextAlign = ContentAlignment.MiddleRight;
+            this.Controls.Add(lblBoxCautare);
+
             BtnAdauga = new Button();
             BtnAdauga.Width = Latime;
             BtnAdauga.Text = "Adauga";
@@ -213,11 +221,34 @@ namespace InterfataUtilizator_WindowsForms
             this.Controls.Add(BtnRefresh);
             BtnRefresh.Click += BtnRefresh_Click;
 
+            BtnCauta = new Button();
+            BtnCauta.Width = Latime;
+            BtnCauta.Text = "Cauta";
+            BtnCauta.Top = 2 * Dimensiune_Y;
+            BtnCauta.Left = 9 * Dimensiune_X;
+            this.Controls.Add(BtnCauta);
+            BtnCauta.Click += BtnCauta_Click;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             AfiseazaCarti();
+        }
+
+        private void Form1_LoadCautare()
+        {
+            string criteriu_cautare = boxCautare.Text;
+            richTextBox1.Clear();
+            Carte[] carti = adminCarti.GetCarti(out int nrCarti);
+            foreach (Carte c in carti)
+            {
+                if (c != null && c.Titlu == criteriu_cautare)
+                { 
+                richTextBox1.AppendText(c.Info());
+                richTextBox1.AppendText(Environment.NewLine);
+                }
+            }
+            boxCautare.Text = string.Empty;
         }
 
         private void AfiseazaCarti()
@@ -287,9 +318,10 @@ namespace InterfataUtilizator_WindowsForms
             }
         }
 
+
         void GreetingBtn_Click(Object sender, EventArgs e)
         {
-            AdaugaCarti();
+            Form1_LoadCautare();
         }
 
         private void AdaugaCarti()
@@ -385,8 +417,6 @@ namespace InterfataUtilizator_WindowsForms
             lblBoxSubiectLiterar.ForeColor = Color.DarkCyan;
             lblBoxValabilitate.ForeColor = Color.DarkCyan;
             lblBoxDetinator.ForeColor = Color.DarkCyan;
-
-
         }
         private void BtnAdauga_Click(object sender, EventArgs e)
         {
@@ -396,6 +426,10 @@ namespace InterfataUtilizator_WindowsForms
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
             AfiseazaCarti();
+        }
+        private void BtnCauta_Click(object sender, EventArgs e) 
+        {
+            Form1_LoadCautare();
         }
     }
 }

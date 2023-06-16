@@ -30,6 +30,7 @@
         {
             this.RbtValabilitate0 = new System.Windows.Forms.RadioButton();
             this.RbtValabilitate1 = new System.Windows.Forms.RadioButton();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // RbtValabilitate0
@@ -54,11 +55,20 @@
             this.RbtValabilitate1.Text = "true";
             this.RbtValabilitate1.UseVisualStyleBackColor = true;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(922, 97);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(236, 206);
+            this.richTextBox1.TabIndex = 2;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1131, 536);
+            this.ClientSize = new System.Drawing.Size(1162, 536);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.RbtValabilitate1);
             this.Controls.Add(this.RbtValabilitate0);
             this.Name = "Form1";
@@ -73,6 +83,7 @@
 
         private System.Windows.Forms.RadioButton RbtValabilitate0;
         private System.Windows.Forms.RadioButton RbtValabilitate1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
